@@ -39,6 +39,11 @@ public class PacketManager {
     }
 
     private boolean isHeader(DatagramPacket packet) {
+        // check if status byte is even (implies header)
+        byte statusByte = packet.getData()[0];
+        if (statusByte % 2 == 0) {
+            return true;
+        }
         return false;
     }
 
