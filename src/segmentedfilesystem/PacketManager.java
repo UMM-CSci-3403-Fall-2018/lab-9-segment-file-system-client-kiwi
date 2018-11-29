@@ -42,6 +42,7 @@ public class PacketManager {
         return false;
     }
 
+    // check whether all files that were started are completed
     public boolean done() {
         for (ReceivedFile receivedFile : receivedFiles.values()) {
             if (!receivedFile.isComplete()) { return false; }

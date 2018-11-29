@@ -15,6 +15,10 @@ public class ReceivedFile {
 
     public void addPacket(DataPacket newPacket) {
         data.add(newPacket);
+
+        if (newPacket.isLastPacket()) {
+            this.numPackets = newPacket.getPacketNumber();
+        }
     }
 
     public void setHeader(HeaderPacket header) {
