@@ -5,7 +5,9 @@ import java.util.ArrayList;
 public class ReceivedFile {
     private byte fileId;
     private String filename;
+    private int numPackets;
     private ArrayList<DataPacket> data;
+    private HeaderPacket header;
 
     public void ReceivedFile() {
 
@@ -13,6 +15,10 @@ public class ReceivedFile {
 
     public void addPacket(DataPacket newPacket) {
         data.add(newPacket);
+    }
+
+    public void setHeader(HeaderPacket header) {
+        this.header = header;
     }
 
     public boolean isComplete() {
