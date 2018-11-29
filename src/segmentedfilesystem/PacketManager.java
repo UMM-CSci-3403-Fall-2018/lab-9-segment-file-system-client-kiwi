@@ -20,6 +20,9 @@ public class PacketManager {
             destinationFile.setHeader(headerPacket);
         } else {
             DataPacket dataPacket = new DataPacket(packet);
+            byte fileID = dataPacket.getFileId();
+            ReceivedFile destinationFile = getOrCreateFile(fileID);
+            destinationFile.addPacket(dataPacket);
         }
     }
 
