@@ -43,6 +43,9 @@ public class PacketManager {
     }
 
     public boolean done() {
-        return false;
+        for (ReceivedFile receivedFile : receivedFiles.values()) {
+            if (!receivedFile.isComplete()) { return false; }
+        }
+        return true;
     }
 }
