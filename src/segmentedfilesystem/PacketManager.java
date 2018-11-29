@@ -54,4 +54,11 @@ public class PacketManager {
         }
         return true;
     }
+
+    public void writeAllFiles(String directory) {
+        for (ReceivedFile receivedFile : receivedFiles.values()) {
+            receivedFile.sortPackets();
+            receivedFile.writeToDisk(directory);
+        }
+    }
 }

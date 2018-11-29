@@ -9,8 +9,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        if (args.length != 1) {
-          System.out.println("Please specify a valid server");
+        if (args.length != 2) {
+          System.out.println("Args need to be of form <server> <directory>");
           return;
         }
 
@@ -33,7 +33,8 @@ public class Main {
             manager.handle(packet);
         }
 
-
+        // write all the files to specified directory
+        manager.writeAllFiles(args[1]);
 
 //        HashMap<Byte, ReceivedFile> receivedFilesById = new HashMap<>();
 //        boolean done = false;

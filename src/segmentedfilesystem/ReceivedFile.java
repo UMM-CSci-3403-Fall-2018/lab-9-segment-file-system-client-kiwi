@@ -41,4 +41,12 @@ public class ReceivedFile {
         }
         return true;
     }
+
+    public void sortPackets() {
+        // TODO: sort packets by packetNum
+    }
+
+    public void writeToDisk(String directory) {
+        // TODO: write sorted data to file in directory
+    }
 }
