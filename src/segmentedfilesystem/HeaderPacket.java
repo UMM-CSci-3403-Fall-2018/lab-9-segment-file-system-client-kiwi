@@ -9,7 +9,7 @@ public class HeaderPacket {
     private byte fileId;
     private byte[] filenameData;
 
-    public void HeaderPacket(DatagramPacket packet) {
+    public HeaderPacket(DatagramPacket packet) {
         byte[] packetData = packet.getData();
         this.status = packetData[0];
         this.fileId = packetData[1];
@@ -23,7 +23,7 @@ public class HeaderPacket {
     public String getFilename() {
         String filename = null;
         try {
-            filename = new String(filenameData, "UTF-8");
+            filename = new String(this.filenameData, "UTF-8");
         } catch (UnsupportedEncodingException uee) {
             System.out.println("Invalid filename encoding");
         }

@@ -52,15 +52,19 @@ public class Main {
         while (!manager.done()) {
             DatagramPacket packet = new DatagramPacket(buf, buf.length);
             try {
+                System.out.println("Hangs at socket.receive(packet)");
                 socket.receive(packet);
+                System.out.println("This won't print on last attempt");
             } catch (IOException ioe) {
                 System.out.println("Failed to receive a packet from the server. This is a Bad Thing.");
                 System.err.println(ioe.getMessage());
             }
 
-
+            System.out.println("Handling packet " + packet.toString());
             manager.handle(packet);
         }
+
+        System.out.println("Exited while loop");
 
         // write all the files to specified directory
         manager.writeAllFiles(args[1]);

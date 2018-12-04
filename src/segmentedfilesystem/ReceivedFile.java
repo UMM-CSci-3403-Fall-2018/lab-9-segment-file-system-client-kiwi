@@ -10,7 +10,7 @@ public class ReceivedFile {
     private byte fileId;
     private String filename;
     private int numPackets = Integer.MIN_VALUE;
-    private ArrayList<DataPacket> data;
+    private ArrayList<DataPacket> data = new ArrayList<>();
     private HeaderPacket header;
 
     public ReceivedFile() {

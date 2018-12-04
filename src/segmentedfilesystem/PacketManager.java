@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class PacketManager {
 
     // <fileId, file>
-    private HashMap<Byte, ReceivedFile> receivedFiles;
+    private HashMap<Byte, ReceivedFile> receivedFiles = new HashMap<>();
 
     public PacketManager() {
 
@@ -16,7 +16,7 @@ public class PacketManager {
     // Add packet to its file as either a HeaderPacket or a DataPacket
     public void handle(DatagramPacket packet) {
         if (isHeader(packet)) {
-            HeaderPacket headerPacket = new HeaderPacket();
+            HeaderPacket headerPacket = new HeaderPacket(packet);
             byte fileId = headerPacket.getFileId();
             ReceivedFile destinationFile = getOrCreateFile(fileId);
             destinationFile.setHeader(headerPacket);
@@ -26,6 +26,7 @@ public class PacketManager {
             ReceivedFile destinationFile = getOrCreateFile(fileID);
             destinationFile.addPacket(dataPacket);
         }
+        System.out.println("Finished handling packet " + packet.toString());
     }
 
     // Helper method for handle(). Returns ReceivedFile possessing fileId. If file doesn't exist yet,
@@ -51,8 +52,12 @@ public class PacketManager {
 
     // check whether all files that were started are completed
     public boolean done() {
+        if (receivedFiles.isEmpty()) {
+            return false;
+        }
         for (ReceivedFile receivedFile : receivedFiles.values()) {
-            if (!receivedFile.isComplete()) { return false; }
+            if (!receivedFile.isComplete()) {
+                return false; }
         }
         return true;
     }
@@ -62,6 +67,7 @@ public class PacketManager {
             // receivedFile.sortPackets();
             try {
                 receivedFile.writeToDisk(directory);
+                System.out.println("Successfully wrote file " + receivedFile.getFileId() + " to disk.");
             } catch (IOException ioe) {
                 System.out.println("File " + receivedFile.getFileId() + " failed to write to disk.");
             }
