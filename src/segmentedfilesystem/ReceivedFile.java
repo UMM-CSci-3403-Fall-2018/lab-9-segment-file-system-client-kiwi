@@ -13,7 +13,7 @@ public class ReceivedFile {
     private ArrayList<DataPacket> data;
     private HeaderPacket header;
 
-    public void ReceivedFile() {
+    public ReceivedFile() {
 
     }
 
