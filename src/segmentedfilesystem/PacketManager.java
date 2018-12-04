@@ -1,5 +1,6 @@
 package segmentedfilesystem;
 
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.util.HashMap;
 
@@ -12,6 +13,7 @@ public class PacketManager {
 
     }
 
+    // Add packet to its file as either a HeaderPacket or a DataPacket
     public void handle(DatagramPacket packet) {
         if (isHeader(packet)) {
             HeaderPacket headerPacket = new HeaderPacket();
@@ -26,6 +28,8 @@ public class PacketManager {
         }
     }
 
+    // Helper method for handle(). Returns ReceivedFile possessing fileId. If file doesn't exist yet,
+    // create and put in receivedFiles.
     private ReceivedFile getOrCreateFile(byte fileId) {
         ReceivedFile file = receivedFiles.get(fileId);
 
@@ -38,13 +42,11 @@ public class PacketManager {
         return file;
     }
 
+    // Returns whether a DatagramPacket is a header.
     private boolean isHeader(DatagramPacket packet) {
         // check if status byte is even (implies header)
         byte statusByte = packet.getData()[0];
-        if (statusByte % 2 == 0) {
-            return true;
-        }
-        return false;
+        return statusByte % 2 == 0;
     }
 
     // check whether all files that were started are completed
@@ -57,8 +59,12 @@ public class PacketManager {
 
     public void writeAllFiles(String directory) {
         for (ReceivedFile receivedFile : receivedFiles.values()) {
-            receivedFile.sortPackets();
-            receivedFile.writeToDisk(directory);
+            // receivedFile.sortPackets();
+            try {
+                receivedFile.writeToDisk(directory);
+            } catch (IOException ioe) {
+                System.out.println("File " + receivedFile.getFileId() + " failed to write to disk.");
+            }
         }
     }
 }

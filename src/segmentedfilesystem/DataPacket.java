@@ -27,7 +27,7 @@ public class DataPacket {
     }
 
     public byte getFileId() {
-        return fileId;
+        return this.fileId;
     }
 
     public int getPacketNumber() {
@@ -36,4 +36,6 @@ public class DataPacket {
         ByteBuffer wrapped = ByteBuffer.wrap(this.packetNumber);
         return wrapped.getInt();
     }
+
+    public byte[] getData() { return this.data; }
 }

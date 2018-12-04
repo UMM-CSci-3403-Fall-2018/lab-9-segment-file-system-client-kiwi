@@ -1,5 +1,9 @@
 package segmentedfilesystem;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class ReceivedFile {
@@ -27,15 +31,15 @@ public class ReceivedFile {
     }
 
     public boolean isComplete() {
-        // if don't know how many packets we're getting yet
+        // false if don't know how many packets we're getting yet
         if (numPackets == Integer.MIN_VALUE) {
             return false;
         }
-        // if don't have all packets yet
+        // false if don't have all packets yet
         if (this.data.size() != numPackets) {
             return false;
         }
-        // if don't have filename from header yet
+        // false if don't have filename from header yet
         if (filename == null) {
             return false;
         }
@@ -43,10 +47,26 @@ public class ReceivedFile {
     }
 
     public void sortPackets() {
-        // TODO: sort packets by packetNum
+        this.data.sort(new PacketNumberComparator());
     }
 
-    public void writeToDisk(String directory) {
-        // TODO: write sorted data to file in directory
+    public void writeToDisk(String directory) throws IOException {
+        if (this.isComplete()) {
+            this.sortPackets();
+
+            for (DataPacket p : this.data) {
+                // source: https://stackoverflow.com/questions/2885173/how-do-i-create-a-file-and-write-to-it-in-java
+                Path file = Paths.get(directory);
+                Files.write(file, p.getData());
+            }
+
+        } else {
+            System.out.println("File " + this.fileId + "was told to write to disk, but is not complete!");
+        }
+
+    }
+
+    public byte getFileId() {
+        return this.fileId;
     }
 }
