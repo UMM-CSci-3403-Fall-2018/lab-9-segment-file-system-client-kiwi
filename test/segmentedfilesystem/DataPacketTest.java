@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.net.DatagramPacket;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
@@ -73,6 +74,13 @@ public class DataPacketTest {
 
     @Test
     public void getData() throws Exception {
+        byte[] data = {0,0,0,0,2,3,4,5};
+        DatagramPacket testDatagramPacket  = new DatagramPacket(data, 8);
+
+        DataPacket testPacket = new DataPacket(testDatagramPacket);
+
+        byte[] testData = {2,3,4,5};
+        assertTrue(Arrays.equals(testPacket.getData(), testData));
     }
 
 }
