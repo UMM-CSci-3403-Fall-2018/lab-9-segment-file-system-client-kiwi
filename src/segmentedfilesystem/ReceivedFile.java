@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ReceivedFile {
     private byte fileId;
-    private String filename;
+    private String filename = "";
     private int numPackets = Integer.MIN_VALUE;
     private ArrayList<DataPacket> data = new ArrayList<>();
     private HeaderPacket header;
@@ -33,14 +33,17 @@ public class ReceivedFile {
     public boolean isComplete() {
         // false if don't know how many packets we're getting yet
         if (numPackets == Integer.MIN_VALUE) {
+            System.out.println("ReceivedFile.isComplete branch: numPackets == Integer.MIN_VALUE");
             return false;
         }
         // false if don't have all packets yet
         if (this.data.size() != numPackets) {
+            System.out.println("ReceivedFile.isComplete branch: this.data.size() != numPackets");
             return false;
         }
         // false if don't have filename from header yet
-        if (filename == null) {
+        if (filename.equals("")) {
+            System.out.println("ReceivedFile.isComplete branch: filename.equals(\"\")");
             return false;
         }
         return true;

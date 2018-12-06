@@ -22,15 +22,12 @@ public class DataPacket {
         return (this.status % 4 == 3);
     }
 
-    public byte getFileId() {
-        return this.fileId;
-    }
+    public byte getFileId() { return this.fileId; }
+
 
     public int getPacketNumber() {
         // solution found at https://stackoverflow.com/questions/7619058/
         // convert-a-byte-array-to-integer-in-java-and-vice-versa
-//        ByteBuffer wrapped = ByteBuffer.wrap(this.packetNumber);
-//        return wrapped.getInt();
         int hob = (int) this.packetNumber[0];
         int lob = (int) this.packetNumber[1];
 
