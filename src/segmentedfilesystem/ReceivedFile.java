@@ -21,13 +21,16 @@ public class ReceivedFile {
         data.add(newPacket);
 
         if (newPacket.isLastPacket()) {
-            this.numPackets = newPacket.getPacketNumber();
+            System.out.println("Received last packet for file " + this.fileId);
+            // +1 since packetNum zero-based
+            this.numPackets = newPacket.getPacketNumber()+1;
         }
     }
 
     public void setHeader(HeaderPacket header) {
         this.header = header;
         this.filename = header.getFilename();
+        System.out.println("Received header packet for file " + this.header + ". Filename=" + this.filename);
     }
 
     public boolean isComplete() {

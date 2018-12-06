@@ -13,7 +13,7 @@ public class HeaderPacket {
         byte[] packetData = packet.getData();
         this.status = packetData[0];
         this.fileId = packetData[1];
-        this.filenameData = Arrays.copyOfRange(packetData, 2, packetData.length);
+        this.filenameData = Arrays.copyOfRange(packetData, 2, packet.getLength() - 2);
     }
 
     public byte getFileId() {

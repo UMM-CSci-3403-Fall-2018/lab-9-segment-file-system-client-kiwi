@@ -10,12 +10,12 @@ public class DataPacket {
     private byte[] packetNumber = new byte[2];
     private byte[] data;
 
-    public DataPacket(DatagramPacket newPacket) {
-        byte[] dataPacket = newPacket.getData();
+    public DataPacket(DatagramPacket packet) {
+        byte[] dataPacket = packet.getData();
         this.status = dataPacket[0];
         this.fileId = dataPacket[1];
         this.packetNumber = Arrays.copyOfRange(dataPacket, 2, 4);
-        this.data = Arrays.copyOfRange(dataPacket, 4, dataPacket.length);
+        this.data = Arrays.copyOfRange(dataPacket, 4, packet.getLength() - 4);
     }
 
     public boolean isLastPacket() {
