@@ -15,7 +15,7 @@ public class DataPacket {
         this.status = dataPacket[0];
         this.fileId = dataPacket[1];
         this.packetNumber = Arrays.copyOfRange(dataPacket, 2, 4);
-        this.data = Arrays.copyOfRange(dataPacket, 4, packet.getLength() - 4);
+        this.data = Arrays.copyOfRange(dataPacket, 4, packet.getLength());
     }
 
     public boolean isLastPacket() {
