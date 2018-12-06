@@ -66,10 +66,11 @@ public class PacketManager {
         for (ReceivedFile receivedFile : receivedFiles.values()) {
             // receivedFile.sortPackets();
             try {
-                receivedFile.writeToDisk(directory);
+                receivedFile.writeToDisk(directory + "/" + receivedFile.getFilename());
                 System.out.println("Successfully wrote file " + receivedFile.getFileId() + " to disk.");
             } catch (IOException ioe) {
                 System.out.println("File " + receivedFile.getFileId() + " failed to write to disk.");
+                System.err.println(ioe.getMessage());
             }
         }
     }

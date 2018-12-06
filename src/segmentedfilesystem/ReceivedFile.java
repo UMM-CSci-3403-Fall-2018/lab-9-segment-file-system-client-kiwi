@@ -75,4 +75,6 @@ public class ReceivedFile {
     public byte getFileId() {
         return this.fileId;
     }
+
+    public String getFilename() { return this.filename; }
 }
