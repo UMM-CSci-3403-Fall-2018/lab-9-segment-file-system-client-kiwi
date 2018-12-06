@@ -1,7 +1,5 @@
 package segmentedfilesystem;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.net.DatagramPacket;
@@ -12,6 +10,15 @@ public class PacketManagerTest {
 
     @Test
     public void isHeader() throws Exception {
+        PacketManager testManager = new PacketManager();
+
+        byte[] headerData = {2,0,0,0,0};
+        byte[] regularData = {1,0,0,0,0};
+        DatagramPacket testHeaderPacket = new DatagramPacket(headerData, 5);
+        DatagramPacket testDataPacket = new DatagramPacket(regularData, 5);
+
+        assertTrue(testManager.isHeader(testHeaderPacket));
+        assertFalse(testManager.isHeader(testDataPacket));
     }
 
     @Test

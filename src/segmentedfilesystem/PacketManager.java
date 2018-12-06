@@ -44,7 +44,7 @@ public class PacketManager {
     }
 
     // Returns whether a DatagramPacket is a header.
-    private boolean isHeader(DatagramPacket packet) {
+    public boolean isHeader(DatagramPacket packet) {
         // check if status byte is even (implies header)
         byte statusByte = packet.getData()[0];
         return statusByte % 2 == 0;
@@ -72,5 +72,9 @@ public class PacketManager {
                 System.out.println("File " + receivedFile.getFileId() + " failed to write to disk.");
             }
         }
+    }
+
+    public HashMap<Byte, ReceivedFile> getReceivedFiles() {
+        return this.receivedFiles;
     }
 }
