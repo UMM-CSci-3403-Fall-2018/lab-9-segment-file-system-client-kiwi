@@ -47,14 +47,14 @@ public class Main {
             System.err.println(ioe.getMessage());
         }
 
+        // the manager will field packets received from the server and
+        // ultimately makes sure everything gets written out to disk
         PacketManager manager = new PacketManager();
 
         while (!manager.done()) {
             DatagramPacket packet = new DatagramPacket(buf, buf.length);
             try {
-                System.out.println("Hangs at socket.receive(packet)");
                 socket.receive(packet);
-                System.out.println("This won't print on last attempt");
             } catch (IOException ioe) {
                 System.out.println("Failed to receive a packet from the server. This is a Bad Thing.");
                 System.err.println(ioe.getMessage());
@@ -68,40 +68,6 @@ public class Main {
 
         // write all the files to specified directory
         manager.writeAllFiles(args[1]);
-
-//        HashMap<Byte, ReceivedFile> receivedFilesById = new HashMap<>();
-//        boolean done = false;
-//
-//        // start receiving packets
-//        while (!done) {
-//          // check to see whether all files have been received completely
-//          for (ReceivedFile file : receivedFilesById.values()) {
-//            if (!file.isComplete()) {
-//              done = false;
-//              break;
-//            }
-//            else { done = true; }
-//          }
-//
-//          // receive another packet
-//          DatagramPacket packet = new DatagramPacket(buf, buf.length);
-//          socket.receive(packet);
-//
-//
-//          DataPacket newPacket = new DataPacket(packet);
-//
-//          // get the file we want to add the packet to
-//          ReceivedFile destinationFile = receivedFilesById.get(newPacket.getFileId());
-//
-//          // add packet to file, creating a new file if necessary and adding to HashMap of <fileId, files>
-//          if (destinationFile != null) {
-//              destinationFile.addPacket(newPacket);
-//          } else {
-//              destinationFile = new ReceivedFile();
-//              receivedFilesById.put(newPacket.getFileId(), destinationFile);
-//              destinationFile.addPacket(newPacket);
-//          }
-//        }
 
     }
 
