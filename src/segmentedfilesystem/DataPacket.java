@@ -1,9 +1,6 @@
 package segmentedfilesystem;
 
-import java.lang.reflect.Array;
-import java.math.BigInteger;
 import java.net.DatagramPacket;
-import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 public class DataPacket {
