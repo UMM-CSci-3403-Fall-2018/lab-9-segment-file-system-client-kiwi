@@ -64,8 +64,8 @@ public class DataPacketTest {
         DataPacket testPacket = new DataPacket(testDatagramPacket);
         assertTrue(testPacket.getPacketNumber() == 515);
 
-        //0000 0100 0000 0101
-        //1029
+        // 0000 0100 0000 0101
+        // 1029
         data[2] = 4;
         data[3] = 5;
         testPacket = new DataPacket(testDatagramPacket);
